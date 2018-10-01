@@ -1,3 +1,7 @@
+Javascript Fatigue + Cloud Fatigue + Web3 Fatigue?
+
+Here is the magic pill to solve all your symptoms.
+
 Starter kit to develop universal dapps with upgradeable smart contracts
 and powerful user interfaces.
 
@@ -73,3 +77,14 @@ npm install --save-exact openzeppelin-solidity
 
 ## TODO
 - No address error
+- Refactor old oly backend
+  - Upgrade dependencies & clean
+  - Use mongo via mlab or compose
+  - Use heroku
+- Frontend React App config
+  - Setup heroku for frontend
+  - Add CSS preprocessor to react app
+  - Add react Router
+  - Enable HTTPS
+  - Set config file .env
+- Try unique heroku app for both (see)

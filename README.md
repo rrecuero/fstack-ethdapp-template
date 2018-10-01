@@ -62,6 +62,9 @@ ln -s ../../ethwrapper/build/contracts contracts
 npm install drizzle --save
 ```
 
+5. Added initial contracts and test to ethwrapper and set config in `truffle.js`.
+
+6. Created packages for backend and ethwrapper folders
 
 ## TODO
 - No address error

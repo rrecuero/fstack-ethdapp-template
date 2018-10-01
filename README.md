@@ -31,8 +31,8 @@ and powerful user interfaces.
 ## Folder Organization
 
 - `ethwrapper/`: Contains standard truffle set up. See below for more
-- `client/`: React/Redux frontend app.
-- `backend/`: Node API backend.
+- `client/`: React/Redux frontend app. Node package.
+- `backend/`: Node API backend. Node package.
 
 ## How the project was created (FYI)
 
@@ -55,6 +55,13 @@ and powerful user interfaces.
 cd src
 ln -s ../../ethwrapper/build/contracts contracts
 ```
+
+4. Installed Drizzle in the client
+
+```
+npm install drizzle --save
+```
+
 
 ## TODO
 - No address error

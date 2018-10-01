@@ -57,5 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+# build contracts
+ethwrapper/build
+
 # next.js build output
 .next

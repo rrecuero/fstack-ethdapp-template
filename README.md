@@ -65,6 +65,11 @@ npm install drizzle --save
 5. Added initial contracts and test to ethwrapper and set config in `truffle.js`.
 
 6. Created packages for backend and ethwrapper folders
+7. Installed openzeppelin
+
+```
+npm install --save-exact openzeppelin-solidity
+```
 
 ## TODO
 - No address error

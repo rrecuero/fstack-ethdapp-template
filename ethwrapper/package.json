@@ -18,6 +18,6 @@
   "author": "Ramon Recuero",
   "license": "ISC",
   "dependencies": {
-    "openzeppelin-solidity": "^1.12.0"
+    "openzeppelin-solidity": "1.12.0"
   }
 }

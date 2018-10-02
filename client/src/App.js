@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import ReadString from "./ReadString";
-import SetString from "./SetString";
+import ReadString from "./components/ReadString";
+import SetString from "./components/SetString";
 import './App.css';
 
 class App extends Component {

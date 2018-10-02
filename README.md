@@ -110,9 +110,10 @@ npm install react-router-dom
 ```
 
 ## TODO
-- No address error
 - Refactor old oly backend
   - Upgrade dependencies & clean
   - Use mongo via mlab or compose
+- Fetch from frontend
 - Create heroku app
 - Use heroku for both in the same app (see)
+- No address error

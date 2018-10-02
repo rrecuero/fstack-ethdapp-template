@@ -26,9 +26,6 @@ const drizzleStore = generateStore(options);
 const drizzle = new Drizzle(options, drizzleStore);
 const history = createBrowserHistory();
 
-ReactDOM.render(<App drizzle={drizzle} />, document.getElementById('root'));
-registerServiceWorker();
-
 // TODO: Move out
 const NoMatch = ({ location }) => (
   <div>
@@ -54,3 +51,4 @@ ReactDOM.render((
   ),
   document.getElementById('root')
 );
+registerServiceWorker();

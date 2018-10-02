@@ -64,6 +64,8 @@ ln -s ../../ethwrapper/build/contracts contracts
 
 ```
 npm install drizzle --save
+npm install drizzle-react --save
+npm install drizzle-react-components --save
 ```
 
 5. Added initial contracts and test to ethwrapper and set config in `truffle.js`.
@@ -74,13 +76,13 @@ npm install drizzle --save
 npm install --save-exact openzeppelin-solidity
 ```
 
-8. Installed SASS
+8. Installed `SASS`
 
 ```
 npm install node-sass --save
 ```
 
-9. Install font awesome
+9. Install `font-awesome`
 
 ```
 npm install --save font-awesome
@@ -89,7 +91,7 @@ npm install --save font-awesome
 import 'font-awesome/css/font-awesome.min.css';
 ```
 
-10. Installs Bulma
+10. Installs `bulma`
 
 ```
 npm install --save bulma
@@ -98,6 +100,14 @@ npm install --save bulma
 import 'bulma/css/bulma.css';
 ```
 
+11. Install `react-router` and `react-router-dom`
+
+```
+npm install react-router
+npm install react-router-dom
+
+// Modify app.js and create the router
+```
 
 ## TODO
 - No address error
@@ -106,9 +116,6 @@ import 'bulma/css/bulma.css';
   - Use mongo via mlab or compose
   - Use heroku
 - Frontend React App config
-  - Setup heroku for frontend
-  - Add CSS preprocessor to react app (Bulma)
-  - Add react Router
   - Enable HTTPS
   - Set config file .env
 - Try unique heroku app for both (see)

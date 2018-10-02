@@ -1,0 +1,19 @@
+{
+  "name": "backend-fstack-dapp-template",
+  "version": "1.0.0",
+  "description": "Backend for the Full Stack Dapp Template",
+  "main": "index.js",
+  "bin": {
+    "backend-fstack-dapp-template": "api.js"
+  },
+  "scripts": {
+    "test": "npm run test"
+  },
+  "keywords": [
+    "stripe",
+    "express",
+    "node"
+  ],
+  "author": "Ramon Recuero",
+  "license": "ISC"
+}

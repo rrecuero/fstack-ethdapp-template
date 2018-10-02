@@ -114,8 +114,5 @@ npm install react-router-dom
 - Refactor old oly backend
   - Upgrade dependencies & clean
   - Use mongo via mlab or compose
-  - Use heroku
-- Frontend React App config
-  - Enable HTTPS
-  - Set config file .env
-- Try unique heroku app for both (see)
+- Create heroku app
+- Use heroku for both in the same app (see)

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import ReadString from "./components/ReadString";
 import SetString from "./components/SetString";
-import './App.css';
+import './App.scss';
 
 class App extends Component {
   state = { loading: true, drizzleState: null };

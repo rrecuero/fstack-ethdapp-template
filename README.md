@@ -83,7 +83,7 @@ npm install --save-exact openzeppelin-solidity
   - Use heroku
 - Frontend React App config
   - Setup heroku for frontend
-  - Add CSS preprocessor to react app
+  - Add CSS preprocessor to react app (Bulma)
   - Add react Router
   - Enable HTTPS
   - Set config file .env

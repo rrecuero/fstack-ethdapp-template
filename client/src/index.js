@@ -1,11 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import registerServiceWorker from './utils/registerServiceWorker';
+
 // import drizzle functions and contract artifact
 import { Drizzle, generateStore } from "drizzle";
 import MyStringStore from "./contracts/MyStringStore.json";
+
+// import css
+import 'font-awesome/css/font-awesome.min.css';
+import 'bulma/bulma.sass';
+import './index.scss';
 
 // let drizzle know what contracts we want
 const options = { contracts: [MyStringStore] };

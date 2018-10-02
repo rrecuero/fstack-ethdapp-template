@@ -80,6 +80,25 @@ npm install --save-exact openzeppelin-solidity
 npm install node-sass --save
 ```
 
+9. Install font awesome
+
+```
+npm install --save font-awesome
+
+// In index.js
+import 'font-awesome/css/font-awesome.min.css';
+```
+
+10. Installs Bulma
+
+```
+npm install --save bulma
+
+// In index.js
+import 'bulma/css/bulma.css';
+```
+
+
 ## TODO
 - No address error
 - Refactor old oly backend

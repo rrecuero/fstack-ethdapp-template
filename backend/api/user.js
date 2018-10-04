@@ -2,10 +2,8 @@ import async from 'async';
 import lodash from 'lodash';
 import { StringDecoder } from 'string_decoder';
 import UserManager from '../users/userManager';
-import Logger from '../log/logger.js';
 
 const userManager = new UserManager();
-const logger = new Logger();
 
 export function advanceOnboarding(req, res, next) {
   const { stepOnboarding } = req.body;

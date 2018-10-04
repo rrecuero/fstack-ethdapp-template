@@ -11,7 +11,6 @@ import uuid from 'node-uuid';
 import expressWinston from 'express-winston';
 import session from 'express-session';
 import winston from 'winston';
-import multer from 'multer';
 import UserManager from '../users/userManager';
 import * as authApi from './auth';
 import * as checkoutApi from './checkout';
@@ -49,28 +48,6 @@ function errorHandler(error, req, res, next) {
     next();
   }
 }
-
-// express-loggly integration
-const logglyConfig = config.get('Loggly');
-morgan.token('uuid', req => req.uuid);
-morgan.token('env', req => req.env);
-app.use((req, res, next) => {
-  req.uuid = uuid.v4();
-  req.env = process.env.NODE_ENV || 'local';
-  next();
-});
-expressWinston.requestWhitelist.push('uuid');
-expressWinston.requestWhitelist.push('env');
-app.use(expressWinston.logger({
-  transports: [
-    new winston.transports.Loggly({
-      inputToken: logglyConfig.token,
-      subdomain: logglyConfig.subdomain,
-      tags: ['Api'],
-      json: true
-    })
-  ]
-}));
 
 const middlewareOptional = (req, res, next) => {
   passport.authenticate('bearer', { session: false }, (err, user) => {

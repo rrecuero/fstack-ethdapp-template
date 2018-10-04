@@ -111,6 +111,11 @@ npm install react-router-dom
 
 ## TODO
 - Refactor old oly backend
+  - Start from a simple express server
+    - Add logging winston (papertrail)
+    - Add passport with JSON web tokens
+    - Add routes
+    - Add tests (maybe jest)
   - Upgrade dependencies & clean
   - Use mongo via mlab or compose
 - Fetch from frontend

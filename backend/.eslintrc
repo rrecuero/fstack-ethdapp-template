@@ -1,0 +1,28 @@
+{
+  "env": {
+    "browser": false,
+    "node": true,
+    "mocha": true,
+    "es6": true
+  },
+  "rules": {
+
+  },
+  "plugins": [
+    "import"
+  ],
+  "settings": {
+    "import/resolve": {
+      moduleDirectory: ["node_modules", "src"]
+    }
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "globals": {
+    "__DEVELOPMENT__": true,
+    "__TESTS__": true,
+    "__DEVTOOLS__": true
+  }
+}

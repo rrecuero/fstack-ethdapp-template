@@ -1,4 +1,5 @@
 {
+  "extends": "airbnb-base",
   "env": {
     "browser": false,
     "node": true,
@@ -6,19 +7,30 @@
     "es6": true
   },
   "rules": {
-
-  },
-  "plugins": [
-    "import"
-  ],
-  "settings": {
-    "import/resolve": {
-      moduleDirectory: ["node_modules", "src"]
-    }
-  },
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "sourceType": "module"
+    "import/default": 0,
+    "import/no-duplicates": 0,
+    "import/named": 0,
+    "import/namespace": 0,
+    "import/no-unresolved": 0,
+    "import/no-named-as-default": 2,
+    "import/no-extraneous-dependencies": [0],
+    "import/extensions": "never",
+    "class-methods-use-this": 0,
+    "block-scoped-var": 0,
+    "padded-blocks": 0,
+    "comma-dangle": 0,  // not sure why airbnb turned this on. gross!
+    "indent": [2, 2, {"SwitchCase": 1}],
+    "consistent-return": 0,
+    "no-param-reassign": 0,
+    "prefer-template": 0,
+    "global-require": 0,
+    "no-console": 0,
+    "arrow-body-style": 0,
+    "no-case-declarations": 0,
+    "no-underscore-dangle": 0,
+    "mocha/no-exclusive-tests": "log",
+    "no-alert": "off",
+    "max-len": ["error", 120]
   },
   "globals": {
     "__DEVELOPMENT__": true,

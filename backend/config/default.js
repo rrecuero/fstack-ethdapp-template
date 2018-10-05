@@ -11,6 +11,11 @@ export const config = {
     url: "mongodb://...",
     reconnectAttempts: 3
   },
+  //Stripe
+  Stripe: {
+    test: 'sk_live_MY_SECRET_KEY',
+    live: 'sk_test_MY_SECRET_KEY'
+  },
   // Mail
   Mandrill: {
     key: ''

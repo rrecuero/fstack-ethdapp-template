@@ -9,6 +9,7 @@ import expressWinston from 'express-winston';
 import jwt from 'express-jwt';
 import UserManager from '../users/userManager';
 
+
 const app = express();
 const version = '1.0';
 const port = process.env.PORT || 4000;

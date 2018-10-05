@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import ReadString from "./components/ReadString";
 import SetString from "./components/SetString";
+import Checkout from './components/Checkout';
 import './App.scss';
 
 class App extends Component {
@@ -63,6 +64,11 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <div className="App-intro">
+          <Checkout
+             name={'The Road to learn React'}
+             description={'Only the Book'}
+             amount={1}
+           />
           <ReadString
             drizzle={this.props.drizzle}
             drizzleState={this.state.drizzleState}

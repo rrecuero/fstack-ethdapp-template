@@ -45,6 +45,8 @@ brew install heroku/brew/heroku
 heroku create -b heroku/nodejs -a <name>
 ```
 
+- Set env variables for the backend and frontend. Override them in heroku
+
 ## Folder Organization
 
 - `ethwrapper/`: Contains standard truffle set up. See below for more

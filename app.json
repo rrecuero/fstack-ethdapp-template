@@ -1,0 +1,21 @@
+{
+  "name": "fstack-dapp-tempalte",
+  "description": "web app made of create-react-app UI + Node API + Truffle",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

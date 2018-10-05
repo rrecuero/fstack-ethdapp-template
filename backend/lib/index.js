@@ -4,6 +4,7 @@ import sanitize from 'mongo-sanitize';
 import { config } from 'config';
 import winston from 'winston';
 import compression from 'compression';
+import path from 'path';
 import expressWinston from 'express-winston';
 import jwt from 'express-jwt';
 
@@ -79,6 +80,11 @@ app.use(errorHandler);
 
 // Routes
 require('../api/')(app, {});
+
+// All remaining requests return the React app, so it can handle routing.
+app.get('*', (request, response) => {
+  response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+});
 
 // Ping route
 app.get('/api/ping', (req, res) => {

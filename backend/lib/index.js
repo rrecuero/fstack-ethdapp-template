@@ -81,7 +81,7 @@ app.use(errorHandler);
 require('../api/')(app, {});
 
 // Ping route
-app.get('/ping', (req, res) => {
+app.get('/api/ping', (req, res) => {
   if (req.headers['x-forwarded-for']) {
     // this indicates the request is from nginx server
     const ips = req.headers['x-forwarded-for'].split(', ');

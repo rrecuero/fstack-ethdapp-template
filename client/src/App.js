@@ -21,29 +21,30 @@ class App extends Component {
         this.setState({ loading: false, drizzleState });
       }
     });
+    this.ping();
   }
 
-  search(query) {
-      return fetch(`/api/ping`, {
-        accept: 'application/json',
-      })
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            apiLoaded: true
-          });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          this.setState({
-            apiLoaded: true,
-            apiError: error
-          });
-        }
-      )
+  ping() {
+    return fetch(`/api/ping`, {
+      accept: 'application/json',
+    })
+    .then(res => res.json())
+    .then(
+      (result) => {
+        this.setState({
+          apiLoaded: true
+        });
+      },
+      // Note: it's important to handle errors here
+      // instead of a catch() block so that we don't swallow
+      // exceptions from actual bugs in components.
+      (error) => {
+        this.setState({
+          apiLoaded: true,
+          apiError: error
+        });
+      }
+    )
   }
 
   compomentWillUnmount() {

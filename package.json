@@ -1,0 +1,31 @@
+{
+  "name": "fstack-dapp-template",
+  "version": "1.0.0",
+  "description": "Full stack Dapp Template",
+  "main": "index.js",
+  "dependencies": {
+    "node-sass": "^4.9.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "postinstall": "npm install --prefix backend && npm install --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rrecuero/fstack-ethdapp-template.git"
+  },
+  "keywords": [
+    "react",
+    "ethereum",
+    "truffle",
+    "drizzle",
+    "nodejs",
+    "openzeppelin"
+  ],
+  "author": "Ramon Recuero <ramon@dapis.io>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rrecuero/fstack-ethdapp-template/issues"
+  },
+  "homepage": "https://github.com/rrecuero/fstack-ethdapp-template#readme"
+}

@@ -32,6 +32,14 @@ and powerful user interfaces.
 
 `npm install -g create-react-app`
 
+- Install heroku (on MacOs)
+
+```
+brew install heroku/brew/heroku
+```
+
+
+
 ## Folder Organization
 
 - `ethwrapper/`: Contains standard truffle set up. See below for more

@@ -33,16 +33,19 @@ app.use(cleanMongo);
 
 // ignore authentication on the following routes
 app.use(
-  jwt({ secret: config.jwt.secret }).unless({
-    path: [
+  jwt({ secret: config.jwt.secret }).unless((req) => {
+    const unprivilegedPaths = [
       '/api/ping',
       '/api/auth/signup',
       '/api/auth/login',
       '/api/auth/forgot',
       '/api/auth/changePassword',
       '/api/auth/verifyEmail',
-    ],
-  }),
+    ];
+    return (
+      req.method === 'GET' || unprivilegedPaths.indexOf(req.originalUrl) !== -1
+    );
+  })
 );
 
 // initialize our logger (in our case, winston + papertrail)
@@ -78,13 +81,11 @@ app.use(jsonParser);
 app.use(urlencodedParser);
 app.use(errorHandler);
 
+// Priority serve any static files.
+app.use(express.static(path.resolve(__dirname, '../../client/build')));
+
 // Routes
 require('../api/')(app, {});
-
-// All remaining requests return the React app, so it can handle routing.
-app.get('*', (request, response) => {
-  response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
-});
 
 // Ping route
 app.get('/api/ping', (req, res) => {
@@ -95,6 +96,11 @@ app.get('/api/ping', (req, res) => {
   } else {
     res.status(200).send({ version });
   }
+});
+
+// All remaining requests return the React app, so it can handle routing.
+app.get('*', (request, response) => {
+  response.sendFile(path.resolve(__dirname, '../../client/build', 'index.html'));
 });
 
 app.listen(port, () => {

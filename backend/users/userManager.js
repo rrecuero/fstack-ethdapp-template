@@ -40,6 +40,7 @@ export default class UserManager {
       }
       this.usersCol = this.mongoInstance.collections('users');
       this.connected = true;
+      cb();
     });
   }
 

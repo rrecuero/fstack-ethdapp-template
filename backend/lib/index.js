@@ -7,10 +7,12 @@ import compression from 'compression';
 import path from 'path';
 import expressWinston from 'express-winston';
 import jwt from 'express-jwt';
+import UserManager from '../users/userManager';
 
 const app = express();
 const version = '1.0';
 const port = process.env.PORT || 4000;
+const userManager = new UserManager();
 
 const corsMiddleware = (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -33,7 +35,9 @@ app.use(cleanMongo);
 
 // ignore authentication on the following routes
 app.use(
-  jwt({ secret: config.jwt.secret }).unless((req) => {
+  jwt({
+    secret: config.jwt.secret
+  }).unless((req) => {
     const unprivilegedPaths = [
       '/api/ping',
       '/api/auth/signup',
@@ -57,7 +61,7 @@ app.use(
         colorize: true
       })
     ],
-    meta: true,
+    meta: true
   }),
 );
 
@@ -84,25 +88,27 @@ app.use(errorHandler);
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, '../../client/build')));
 
-// Routes
-require('../api/')(app, {});
+userManager.init(() => {
+  // Routes
+  require('../api/')(app, {});
 
-// Ping route
-app.get('/api/ping', (req, res) => {
-  if (req.headers['x-forwarded-for']) {
-    // this indicates the request is from nginx server
-    const ips = req.headers['x-forwarded-for'].split(', ');
-    res.status(200).send({ version, ips });
-  } else {
-    res.status(200).send({ version });
-  }
-});
+  // Ping route
+  app.get('/api/ping', (req, res) => {
+    if (req.headers['x-forwarded-for']) {
+      // this indicates the request is from nginx server
+      const ips = req.headers['x-forwarded-for'].split(', ');
+      res.status(200).send({ version, ips });
+    } else {
+      res.status(200).send({ version });
+    }
+  });
 
-// All remaining requests return the React app, so it can handle routing.
-app.get('*', (request, response) => {
-  response.sendFile(path.resolve(__dirname, '../../client/build', 'index.html'));
-});
+  // All remaining requests return the React app, so it can handle routing.
+  app.get('*', (request, response) => {
+    response.sendFile(path.resolve(__dirname, '../../client/build', 'index.html'));
+  });
 
-app.listen(port, () => {
-  console.log('Listening');
+  app.listen(port, () => {
+    console.log('Listening');
+  });
 });

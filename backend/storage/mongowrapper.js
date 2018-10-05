@@ -3,7 +3,6 @@ import async from 'async';
 
 // Singleton
 let instance = null;
-const pemFile = require('fs').readFileSync('storage/mongo.pem');
 
 export default class MongoWrapper {
   constructor(config) {
@@ -24,14 +23,13 @@ export default class MongoWrapper {
       return cb();
     }
     const params = Object.assign(this.config.params, {
-      ssl: true,
-      sslValidate: true,
-      sslCA: [pemFile] // cert from compose.io dashboard
+      useNewUrlParser: true
     });
+
     MongoClient.connect(
-      this.config.url,
+      process.env.MONGODB_URI || this.config.url,
       params,
-      (err, db) => {
+      (err, client) => {
         if (err) {
           if (attempts <= this.config.reconnectAttempts) {
             console.error(`MongoDB: connection failure ${err}, trying again`);
@@ -43,7 +41,7 @@ export default class MongoWrapper {
             process.exit(1);
           }
         } else {
-          this.db = db;
+          this.db = client.db(this.config.dbname);
           this.applyIndexes(cb);
           this.connected = true;
         }

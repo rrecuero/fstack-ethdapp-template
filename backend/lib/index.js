@@ -10,7 +10,7 @@ import jwt from 'express-jwt';
 
 const app = express();
 const version = '1.0';
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 const corsMiddleware = (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');

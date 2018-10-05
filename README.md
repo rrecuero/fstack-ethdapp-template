@@ -38,8 +38,6 @@ and powerful user interfaces.
 brew install heroku/brew/heroku
 ```
 
-
-
 ## Folder Organization
 
 - `ethwrapper/`: Contains standard truffle set up. See below for more
@@ -118,6 +116,8 @@ npm install react-router-dom
 ```
 
 12. Install backend packages. See `package.json` for reference.
+
+13. Used single [heroku app setup for both apps](https://github.com/mars/heroku-cra-node)
 
 ## TODO
 - Refactor backend

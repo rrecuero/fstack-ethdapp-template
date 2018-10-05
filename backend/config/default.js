@@ -8,7 +8,7 @@ export const config = {
       connectTimeoutMS: 10000
     },
     dbname: 'heroku_83k552gr',
-    url: "mongodb://heroku_83k552gr:hh05c3fup8j8b7jokv6eovsqc@ds223763.mlab.com:23763/heroku_83k552gr",
+    url: "mongodb://...",
     reconnectAttempts: 3
   },
   // Mail

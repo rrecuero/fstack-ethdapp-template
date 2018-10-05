@@ -23,6 +23,29 @@ class App extends Component {
     });
   }
 
+  search(query) {
+      return fetch(`/api/ping`, {
+        accept: 'application/json',
+      })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            apiLoaded: true
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            apiLoaded: true,
+            apiError: error
+          });
+        }
+      )
+  }
+
   compomentWillUnmount() {
     this.unsubscribe();
   }

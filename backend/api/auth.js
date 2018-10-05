@@ -126,12 +126,12 @@ function register(req, res, next) {
 }
 
 module.exports = (app) => {
-  app.post('/auth/login', login);
-  app.post('/auth/forgot', forgot);
-  app.post('/auth/signup', register);
-  app.post('/auth/changePassword', changePassword);
-  app.post('/auth/verifyEmail', verifyEmail);
-  app.get('/auth/load', load);
-  app.post('/auth/setEmail', setEmail);
-  app.get('/auth/logout', logout);
+  app.post('/api/auth/login', login);
+  app.post('/api/auth/forgot', forgot);
+  app.post('/api/auth/signup', register);
+  app.post('/api/auth/changePassword', changePassword);
+  app.post('/api/auth/verifyEmail', verifyEmail);
+  app.get('/api/auth/load', load);
+  app.post('/api/auth/setEmail', setEmail);
+  app.get('/api/auth/logout', logout);
 };

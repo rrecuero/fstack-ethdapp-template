@@ -81,10 +81,10 @@ function deleteUser(req, res, next) {
 
 
 module.exports = (app) => {
-  app.post('/user/onboarding/set', advanceOnboarding);
-  app.post('/user/setUserData', setOnboardingData);
-  app.post('/user/flagTutorial', flagTutorial);
-  app.post('/user/flagNotification', flagNotification);
-  app.get('/users/', getUsers);
-  app.delete('/user/', deleteUser);
+  app.post('/api/user/onboarding/set', advanceOnboarding);
+  app.post('/api/user/setUserData', setOnboardingData);
+  app.post('/api/user/flagTutorial', flagTutorial);
+  app.post('/api/user/flagNotification', flagNotification);
+  app.get('/api/users/', getUsers);
+  app.delete('/api/user/', deleteUser);
 };

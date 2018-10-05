@@ -34,13 +34,12 @@ app.use(cleanMongo);
 app.use(
   jwt({ secret: config.jwt.secret }).unless({
     path: [
-      '/',
-      '/ping',
-      '/auth/signup',
-      '/auth/login',
-      '/auth/forgot',
-      '/auth/changePassword',
-      '/auth/verifyEmail',
+      '/api/ping',
+      '/api/auth/signup',
+      '/api/auth/login',
+      '/api/auth/forgot',
+      '/api/auth/changePassword',
+      '/api/auth/verifyEmail',
     ],
   }),
 );
@@ -83,7 +82,6 @@ require('../api/')(app, {});
 
 // Ping route
 app.get('/ping', (req, res) => {
-  console.log('aaa');
   if (req.headers['x-forwarded-for']) {
     // this indicates the request is from nginx server
     const ips = req.headers['x-forwarded-for'].split(', ');

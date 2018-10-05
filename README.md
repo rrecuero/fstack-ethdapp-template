@@ -109,12 +109,12 @@ npm install react-router-dom
 // Modify app.js and create the router
 ```
 
+12. Install backend packages. See `package.json` for reference.
+
 ## TODO
-- Refactor old oly backend
+- Refactor backend
   - Start from a simple express server
-    - Add logging winston (papertrail)
     - Add passport with JSON web tokens
-    - Add routes
     - Add tests (maybe jest)
   - Upgrade dependencies & clean
   - Use mongo via mlab or compose

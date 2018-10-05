@@ -32,10 +32,11 @@ and powerful user interfaces.
 
 `npm install -g create-react-app`
 
-- Install heroku (on MacOs)
+- Install heroku (on MacOs) and create the app
 
 ```
 brew install heroku/brew/heroku
+heroku create -b heroku/nodejs -a <name>
 ```
 
 ## Folder Organization

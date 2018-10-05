@@ -72,8 +72,7 @@ export function signupBeta(req, res, next) {
           next('Please enter a valid email');
         }
       }
-    }
-  );
+    });
 }
 
 export function login(req, res, next) {
@@ -137,7 +136,9 @@ export function verifyEmail(req, res, next) {
 }
 
 export function register(req, res, next) {
-  const { name, password, rpassword, email } = req.body;
+  const {
+    name, password, rpassword, email
+  } = req.body;
   if (password !== rpassword) {
     return next('Error registering user: Passwords do not match!');
   }

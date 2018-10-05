@@ -1,10 +1,7 @@
 import { config } from 'config';
 import sha256 from 'sha256';
 import jwt from 'jsonwebtoken';
-import lodash from 'lodash';
-import async from 'async';
 import MongoWrapper from '../storage/mongowrapper';
-import { toUtcDate } from '../utils/dateutils';
 
 // Collection users
 // - name: Name of the user
@@ -67,7 +64,7 @@ export default class UserManager {
       { $inc: statIncObj }, { new: true, upsert: false }, cb);
   }
 
-  register(user, cb, isAdmin = false, mixpanelId) {
+  register(user, cb, isAdmin = false) {
     user.password = sha256(user.password);
     const conditions = [];
     const plan = 'assistant-curator';
@@ -90,14 +87,18 @@ export default class UserManager {
       user.isAdmin = isAdmin;
       user.stepOnboarding = 0;
       user.tier = plan;
-      user.stats = { total: 0, unseen: 0, dailyCurated: 0, pending: 0, curated: 0, mins: 0 };
+      user.stats = {
+        total: 0, unseen: 0, dailyCurated: 0, pending: 0, curated: 0, mins: 0
+      };
       user.seenTutorials = [];
       user.seenNotifs = [];
       user.subscriptionId = null;
       user.tier_status = 'in_trial'; // In trial, doesn't start until onboarding is complete
       user.emailVerified = false;
-      user.permatoken = jwt.sign({ name: user.name,
-        date: new Date() }, user.password, { expiresIn: '5000d' });
+      user.permatoken = jwt.sign({
+        name: user.name,
+        date: new Date()
+      }, user.password, { expiresIn: '5000d' });
       this.usersCol.insertOne(user, (errInsert) => {
         if (errInsert) {
           return cb('Error inserting user');
@@ -118,13 +119,16 @@ export default class UserManager {
         return cb('Error creating subscription for the user');
       }
       this.usersCol.findAndModify({ _id: user._id }, [],
-        { $set: {
-          tier: plan,
-          subscriptionId: result.subscription.id,
-          tier_status: result.subscription.status } }, { new: true }, (err, fuser) => {
-            cb(err && 'Error creating subscription', fuser && fuser.value);
+        {
+          $set: {
+            tier: plan,
+            subscriptionId: result.subscription.id,
+            tier_status: result.subscription.status
           }
-      );
+        },
+        { new: true }, (err, fuser) => {
+          cb(err && 'Error creating subscription', fuser && fuser.value);
+        });
     });
   }
 
@@ -146,7 +150,6 @@ export default class UserManager {
           return cb(null, false);
         }
         this.getSubscriptionStatus(user, (errSub, status) => {
-          // TODO: get tier
           user.tier_status = status;
           if (errSub) {
             console.error('error getting subscription', errSub);
@@ -208,7 +211,9 @@ export default class UserManager {
     });
   }
 
-  setToken({ _id, email, password, name, token, subscriptionId }, cb) {
+  setToken({
+    _id, email, password, name, token, subscriptionId
+  }, cb) {
     let newToken = false;
     const date = new Date();
     // There is a valid token
@@ -228,13 +233,12 @@ export default class UserManager {
     }
     this.usersCol.findAndModify({ _id }, [],
       { $set: { token: newToken, lastLoggedIn: new Date(), subscriptionId } },
-        { new: true }, (err, user) => {
-          if (err) {
-            return cb('Error creating token');
-          }
-          cb(null, user.value);
+      { new: true }, (err, user) => {
+        if (err) {
+          return cb('Error creating token');
         }
-      );
+        cb(null, user.value);
+      });
   }
 
   updateSubscriptionStatus(user, cb) {
@@ -245,17 +249,15 @@ export default class UserManager {
       this.usersCol.findAndModify({ _id: user._id }, [],
         { $set: { tier_status: tierStatus } }, { new: true }, (err, fuser) => {
           cb(err && 'Error creating token', fuser && fuser.value);
-        }
-      );
+        });
     });
   }
 
-  updateLoggedInDateAndSubscription({ _id, tier, tier_status }, cb) {
+  updateLoggedInDateAndSubscription({ _id, tier, tierStatus }, cb) {
     this.usersCol.findAndModify({ _id }, [],
-      { $set: { lastLoggedIn: new Date(), tier, tier_status } }, { new: true }, (err, user) => {
+      { $set: { lastLoggedIn: new Date(), tier, tier_status: tierStatus } }, { new: true }, (err, user) => {
         cb(err && 'Error creating token', user && user.value);
-      }
-    );
+      });
   }
 
   setEmail({ _id }, email, cb) {
@@ -265,8 +267,7 @@ export default class UserManager {
           return cb('Error setting email');
         }
         cb(null, user.value);
-      }
-    );
+      });
   }
 
   findUserBy(params, cb, projection = {}) {
@@ -282,8 +283,10 @@ export default class UserManager {
     this.usersCol.updateOne({ _id }, { $set: { token: null } }, cb);
   }
 
-  pickPublicInfo({ _id, email, emailVerified, token, permatoken,
-    seenTutorials, seenNotifs, name, stepOnboarding, tier, tier_status }) {
+  pickPublicInfo({
+    _id, email, emailVerified, token, permatoken,
+    seenTutorials, seenNotifs, name, stepOnboarding, tier, tierStatus
+  }) {
     return {
       id: _id.valueOf(),
       email,
@@ -294,8 +297,9 @@ export default class UserManager {
       name,
       tier,
       stepOnboarding,
-      tier_status,
-      permatoken };
+      tier_status: tierStatus,
+      permatoken
+    };
   }
 
   deleteUserByEmail(email, cb) {
@@ -321,7 +325,8 @@ export default class UserManager {
               return cb(errCancel);
             }
             this.usersCol.removeOne(query, cb);
-          });
+          }
+        );
       } else {
         this.usersCol.removeOne(query, cb);
       }
@@ -387,6 +392,7 @@ export default class UserManager {
     this.usersCol.findAndModify({ token: user.token },
       [], { $push: { seenTutorials: tutorialKey } }, { new: true }, cb);
   }
+
   flagNotification(user, notificationKey, cb) {
     this.usersCol.findAndModify({ token: user.token },
       [], { $push: { seenNotifs: notificationKey } }, { new: true }, cb);

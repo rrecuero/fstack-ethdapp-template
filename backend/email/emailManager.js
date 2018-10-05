@@ -1,8 +1,4 @@
 import { config } from 'config';
-import moment from 'moment';
-import lodash from 'lodash';
-import async from 'async';
-import request from 'request';
 import mandrill from 'mandrill-api/mandrill';
 
 // Singleton

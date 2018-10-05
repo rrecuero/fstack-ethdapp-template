@@ -25,8 +25,8 @@ export default class SubscriptionsManager {
 
   createHostedPageSubscription(planId, user, cb) {
     const hostedPage = chargebee.hosted_page;
-    const checkoutFunc = user.subscriptionId ?
-      hostedPage.checkout_existing : hostedPage.checkout_new;
+    const checkoutFunc = user.subscriptionId
+      ? hostedPage.checkout_existing : hostedPage.checkout_new;
     const params = ({
       subscription: {
         plan_id: planId

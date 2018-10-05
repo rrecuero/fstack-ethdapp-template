@@ -7,8 +7,6 @@ import compression from 'compression';
 import expressWinston from 'express-winston';
 import jwt from 'express-jwt';
 
-require('winston-papertrail').Papertrail; // eslint-disable-line
-
 const app = express();
 const version = '1.0';
 const port = 4000;
@@ -23,7 +21,7 @@ const corsMiddleware = (req, res, next) => {
 if (process.env.NODE_ENV !== 'production') {
   app.use(corsMiddleware);
 }
-app.use(compression);
+app.use(compression());
 // sanitize
 const cleanMongo = (req, res, next) => {
   req.body = sanitize(req.body);
@@ -37,32 +35,24 @@ app.use(
   jwt({ secret: config.jwt.secret }).unless({
     path: [
       '/',
+      '/ping',
       '/auth/signup',
       '/auth/login',
-      '/auth/forgot-password',
-      '/auth/reset-password',
+      '/auth/forgot',
+      '/auth/changePassword',
+      '/auth/verifyEmail',
     ],
   }),
 );
-
-
-// throw an error if a jwt is not passed in the request
-app.use((err, req, res) => {
-  if (err.name === 'UnauthorizedError') {
-    res.status(401).send('Missing authentication credentials.');
-  }
-});
-
 
 // initialize our logger (in our case, winston + papertrail)
 app.use(
   expressWinston.logger({
     transports: [
-      new winston.transports.Papertrail({
-        host: config.logger.host,
-        port: config.logger.port,
-        level: 'error',
-      }),
+      new winston.transports.Console({
+        json: true,
+        colorize: true
+      })
     ],
     meta: true,
   }),
@@ -70,6 +60,9 @@ app.use(
 
 function errorHandler(error, req, res, next) {
   if (error) {
+    if (error.name === 'UnauthorizedError') {
+      res.status(401).send('Missing authentication credentials.');
+    }
     console.error('API Error ', error);
     res.status(500).send({ error: error.toString() });
     res.end();
@@ -83,10 +76,14 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const jsonParser = bodyParser.json();
 app.use(jsonParser);
 app.use(urlencodedParser);
+app.use(errorHandler);
+
 // Routes
 require('../api/')(app, {});
+
 // Ping route
 app.get('/ping', (req, res) => {
+  console.log('aaa');
   if (req.headers['x-forwarded-for']) {
     // this indicates the request is from nginx server
     const ips = req.headers['x-forwarded-for'].split(', ');
@@ -95,7 +92,6 @@ app.get('/ping', (req, res) => {
     res.status(200).send({ version });
   }
 });
-app.use(errorHandler);
 
 app.listen(port, () => {
   console.log('Listening');

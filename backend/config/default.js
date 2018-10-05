@@ -24,6 +24,10 @@ export const config = {
   jwt: {
     secret: 'asdasd'
   },
+  logger: {
+    host: 'test',
+    port: '1'
+  },
   MailChimp: {
     baseUrl: 'https://us12.api.mailchimp.com/3.0/lists/9220442511/members',
     apiKey: '*'

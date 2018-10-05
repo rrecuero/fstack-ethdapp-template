@@ -1,21 +1,17 @@
 import winston from 'winston';
-import config from '../../config';
-
-require('winston-papertrail').Papertrail; // eslint-disable-line
-
 
 let logger = {};
 
 if (process.env.NODE_ENV !== 'production') {
   logger = console;
 } else {
-  const papertrailTransport = new winston.transports.Papertrail({
-    host: config.logger.host,
-    port: config.logger.port,
+  const consoleTransport = new winston.transports.Console({
+    json: true,
+    colorize: true
   });
 
   logger = new winston.Logger({
-    transports: [papertrailTransport],
+    transports: [consoleTransport],
   });
 }
 

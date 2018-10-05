@@ -1,12 +1,10 @@
-import request from 'superagent';
-import { config } from 'config';
 import UserManager from '../users/userManager';
 import EmailManager from '../email/emailManager';
 
 const emailManager = new EmailManager();
 const userManager = new UserManager();
 
-export function load(req, res, next) {
+function load(req, res, next) {
   if (!req.user) {
     return next('No user to load');
   }
@@ -19,7 +17,7 @@ export function load(req, res, next) {
   });
 }
 
-export function setEmail(req, res, next) {
+function setEmail(req, res, next) {
   const { email } = req.body;
   if (req.user && !req.user.email) {
     userManager.setEmail(req.user, email, (err, user) => {
@@ -32,7 +30,7 @@ export function setEmail(req, res, next) {
   }
 }
 
-export function logout(req, res, next) {
+function logout(req, res, next) {
   req.session.destroy(() => {
     if (req.user) {
       userManager.clearToken(req.user, (err) => {
@@ -47,35 +45,7 @@ export function logout(req, res, next) {
   });
 }
 
-export function signupBeta(req, res, next) {
-  const { email } = req.body;
-  const mailChimpConfig = config.MailChimp;
-  request.post(mailChimpConfig.baseUrl)
-    .set('Authorization', 'apikey ' + mailChimpConfig.apiKey) // this sets a header field
-    .send({
-      email_address: email,
-      status: 'subscribed'
-    })
-    .end((err, response) => {
-      if (response.statusCode === 200) {
-        res.status(200).send({ result: 'user subscribed' });
-      }
-      if (err) {
-        try {
-          const { title } = JSON.parse(response.error.text);
-          if (title === 'Member Exists') {
-            next('Email already added to the list.');
-          } else {
-            next('Please enter a valid email.');
-          }
-        } catch (err2) {
-          next('Please enter a valid email');
-        }
-      }
-    });
-}
-
-export function login(req, res, next) {
+function login(req, res, next) {
   const { email, password, key } = req.body;
   const ret = (err, user) => {
     if (err || !user) {
@@ -95,7 +65,7 @@ export function login(req, res, next) {
   userManager.login({ email, password }, ret);
 }
 
-export function forgot(req, res, next) {
+function forgot(req, res, next) {
   const { email } = req.body;
   userManager.findUserByEmail(email, (errEmail, userEmail) => {
     if (errEmail || !userEmail) {
@@ -109,7 +79,7 @@ export function forgot(req, res, next) {
   });
 }
 
-export function changePassword(req, res, next) {
+function changePassword(req, res, next) {
   const { password, rpassword, token } = req.body;
   if (password !== rpassword) {
     return next('Error changing password: Passwords do not match!');
@@ -123,7 +93,7 @@ export function changePassword(req, res, next) {
   });
 }
 
-export function verifyEmail(req, res, next) {
+function verifyEmail(req, res, next) {
   if (!req.user.email) {
     return next('Error verifying email. Does not have any');
   }
@@ -135,7 +105,7 @@ export function verifyEmail(req, res, next) {
   });
 }
 
-export function register(req, res, next) {
+function register(req, res, next) {
   const {
     name, password, rpassword, email
   } = req.body;
@@ -154,3 +124,14 @@ export function register(req, res, next) {
     });
   });
 }
+
+module.exports = (app) => {
+  app.post('/auth/login', login);
+  app.post('/auth/forgot', forgot);
+  app.post('/auth/signup', register);
+  app.post('/auth/changePassword', changePassword);
+  app.post('/auth/verifyEmail', verifyEmail);
+  app.get('/auth/load', load);
+  app.post('/auth/setEmail', setEmail);
+  app.get('/auth/logout', logout);
+};

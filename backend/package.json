@@ -41,11 +41,15 @@
     "compression": "^1.7.3",
     "config": "^2.0.1",
     "express": "^4.16.3",
+    "express-jwt": "^5.3.1",
+    "express-winston": "^3.0.0",
     "lodash": "^4.17.11",
+    "mandrill-api": "^1.0.45",
     "mongo-sanitize": "^1.0.0",
     "mongodb": "^3.1.6",
-    "winston": "^3.1.0",
-    "winston-papertrail": "^1.0.5"
+    "sha256": "^0.2.0",
+    "superagent": "^4.0.0-beta.5",
+    "winston": "^3.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",

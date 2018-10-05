@@ -20,6 +20,12 @@ and powerful user interfaces.
 ## Requirements
 
 - Install latest Node (8+) & npm
+- Install babel
+`npm install --global babel-cli`
+
+- Install eslint
+`npm install -g eslint`
+
 - Install Truffle
 
 `npm install -g truffle`

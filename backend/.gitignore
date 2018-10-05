@@ -9,7 +9,7 @@ dist
 # Temp folder
 temp
 
-storage/mongo.pem
+#storage/mongo.pem
 
 # Runtime data
 pids

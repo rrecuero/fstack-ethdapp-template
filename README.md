@@ -129,13 +129,4 @@ npm install react-router-dom
 13. Used single [heroku app setup for both apps](https://github.com/mars/heroku-cra-node)
 
 ## TODO
-- Refactor backend
-  - Start from a simple express server
-    - Add passport with JSON web tokens
-    - Add tests (maybe jest)
-  - Upgrade dependencies & clean
-  - Use mongo via mlab or compose
-- Fetch from frontend
-- Create heroku app
-- Use heroku for both in the same app (see)
 - No address error

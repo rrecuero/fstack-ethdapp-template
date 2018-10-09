@@ -8,6 +8,7 @@ import { createBrowserHistory } from 'history';
 import NoMatch from './containers/NoMatch';
 import Product from './containers/Product';
 import Subscription from './containers/Subscription';
+import Loading from './containers/Loading';
 
 // import drizzle functions
 import { Drizzle, generateStore } from 'drizzle';

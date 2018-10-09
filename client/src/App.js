@@ -68,10 +68,9 @@ class App extends Component {
     const { isAuthenticated } = this.props.auth;
     return (
       <div className="App">
-        <h1> Drizzle is ready </h1>
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Welcome to Full Stack Dapp Template</h1>
         </header>
         <div className="App-intro">
           {isAuthenticated() &&

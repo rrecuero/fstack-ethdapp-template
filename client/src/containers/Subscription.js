@@ -11,10 +11,12 @@ class Subscription extends Component {
   render() {
     return (
       <div className="App">
-      <Checkout
-         name={'The Road to learn React'}
-         description={'Only the Book'}
-         amount={1}
+        <Checkout
+          apiToken={this.props.auth.getAccessToken()}
+          userId= {this.props.auth && this.props.auth.userProfile.sub}
+          name={'Product Subscription'}
+          description={'One Month'}
+          amount={9}
        />
       </div>
     );

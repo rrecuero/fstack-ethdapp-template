@@ -13,9 +13,9 @@ export default class Auth {
   requestedScopes = 'openid profile read:messages write:messages';
   constructor(history) {
     this.auth0 = new auth0.WebAuth({
-      domain: 'dapis.auth0.com',
-      clientID: 'EcDmjEPPOYAnBiY9o0jSEsukqdCfITdW',
-      audience: 'https://dblog.dapis.io/api',
+      domain: process.env.NODE_ENV.AUTH0_DOMAIN,
+      clientID: process.env.NODE_ENV.AUTH0_CLIENTID,
+      audience: process.env.NODE_ENV.AUTH0_AUDIENCE,
       redirectUri: REDIRECT_URI,
       responseType: 'token id_token',
       scope: this.requestedScopes
@@ -35,9 +35,9 @@ export default class Auth {
         this.setSession(authResult);
         this.getProfile((err, profile) => {
           if (profile && profile.paid) {
-            window.location.href = '/paid';
+            window.location.href = '/product';
           } else {
-            window.location.href = '/checkout';
+            window.location.href = '/subscription';
           }
         });
       } else if (err) {

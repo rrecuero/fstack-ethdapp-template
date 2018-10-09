@@ -14,12 +14,12 @@ class Product extends Component {
     return (
       <div className="App">
         <ReadString
-          drizzle={this.props.drizzle}
-          drizzleState={this.state.drizzleState}
+          drizzle={drizzle}
+          drizzleState={drizzleState}
         />
         <SetString
-          drizzle={this.props.drizzle}
-          drizzleState={this.state.drizzleState}
+          drizzle={drizzle}
+          drizzleState={drizzleState}
         />
       </div>
     );

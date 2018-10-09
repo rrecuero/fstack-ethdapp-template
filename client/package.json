@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "auth0-js": "^9.8.0",
     "bulma": "^0.7.1",
     "drizzle": "^1.2.3",
     "drizzle-react": "^1.2.0",

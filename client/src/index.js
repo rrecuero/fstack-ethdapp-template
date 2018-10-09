@@ -1,22 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import Auth from './auth/Auth';
 import registerServiceWorker from './utils/registerServiceWorker';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+import NoMatch from './containers/NoMatch';
+import Product from './containers/Product';
+import Subscription from './containers/Subscription';
 
 // import drizzle functions
 import { Drizzle, generateStore } from 'drizzle';
 import { DrizzleContext } from 'drizzle-react';
-import { LoadingContainer } from 'drizzle-react-components';
+// import { LoadingContainer } from 'drizzle-react-components';
 // import contract artifacts
 
 import MyStringStore from './contracts/MyStringStore.json';
 
 // import css
 import 'font-awesome/css/font-awesome.min.css';
-// import 'bulma/bulma.sass';
+import 'bulma/bulma.sass';
 import './index.scss';
+
+const auth = new Auth();
 
 // let drizzle know what contracts we want
 const options = { contracts: [MyStringStore] };
@@ -26,26 +32,34 @@ const drizzleStore = generateStore(options);
 const drizzle = new Drizzle(options, drizzleStore);
 const history = createBrowserHistory();
 
-// TODO: Move out
-const NoMatch = ({ location }) => (
-  <div>
-    <h3>
-      No match for <code>{location.pathname}</code>
-    </h3>
-  </div>
-);
 
 ReactDOM.render((
     <DrizzleContext.Provider drizzle={drizzle}>
-      <App drizzle={drizzle}>
-        <LoadingContainer>
-          <Router history={history} store={drizzleStore}>
-            <Switch>
-              <Route exact path="/" component={App} />
-              <Route component={NoMatch} />
-            </Switch>
-          </Router>
-        </LoadingContainer>
+      <App auth={auth} drizzle={drizzle}>
+        <Router history={history} store={drizzleStore}>
+          <Switch>
+            <Route exact path="/" component={App} />
+            <Route exact path="/callback" render={(props) => {
+              auth.handleAuthentication(props);
+              return <Loading {...props} />
+            }}/>
+            <Route exact path="/subscription" render={(props) => (
+              !auth.isAuthenticated() ? (
+                <Redirect to="/"/>
+              ) : (
+                <Subscription auth={auth} {...props} />
+              )
+            )} />
+            <Route exact path="/product" render={(props) => (
+              !auth.isAuthenticated() || !auth.hasPaid()? (
+                <Redirect to="/"/>
+              ) : (
+                <Product auth={auth} drizzle={drizzle} {...props} />
+              )
+            )} />
+            <Route component={NoMatch} />
+          </Switch>
+        </Router>
       </App>
     </DrizzleContext.Provider>
   ),

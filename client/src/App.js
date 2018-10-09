@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import ReadString from "./components/ReadString";
-import SetString from "./components/SetString";
-import Checkout from './components/Checkout';
 import './App.scss';
 
 class App extends Component {
@@ -23,6 +20,21 @@ class App extends Component {
       }
     });
     this.ping();
+    if (this.props.auth.isAuthenticated()) {
+      this.props.auth.getProfile();
+    }
+  }
+
+  login() {
+    this.props.auth.login();
+  }
+
+  logout() {
+    this.props.auth.logout();
+  }
+
+  compomentWillUnmount() {
+    this.unsubscribe();
   }
 
   ping() {
@@ -48,14 +60,12 @@ class App extends Component {
     )
   }
 
-  compomentWillUnmount() {
-    this.unsubscribe();
-  }
 
   render() {
     if (this.state.loading) {
       return "Loading Drizzle...";
     }
+    const { isAuthenticated } = this.props.auth;
     return (
       <div className="App">
         <h1> Drizzle is ready </h1>
@@ -64,19 +74,25 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <div className="App-intro">
-          <Checkout
-             name={'The Road to learn React'}
-             description={'Only the Book'}
-             amount={1}
-           />
-          <ReadString
-            drizzle={this.props.drizzle}
-            drizzleState={this.state.drizzleState}
-          />
-          <SetString
-            drizzle={this.props.drizzle}
-            drizzleState={this.state.drizzleState}
-          />
+          {isAuthenticated() &&
+            <div className="logged-container">
+               <button
+                 className="button"
+                 onClick={this.logout.bind(this)}
+               >
+                 <span>Log Out</span>
+               </button>
+            </div>
+          }
+          {!isAuthenticated() &&
+            <button
+              className="button"
+              onClick={this.login.bind(this)}
+            >
+              <span>Sign Up</span>
+            </button>
+          }
+          {this.props.children}
         </div>
       </div>
     );

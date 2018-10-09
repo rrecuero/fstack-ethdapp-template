@@ -36,24 +36,9 @@ export default class UserManager {
         throw err;
       }
       this.usersCol = this.mongoInstance.collections('users');
-      this.postsCol = this.mongoInstance.collections('posts');
       this.connected = true;
       cb();
     });
-  }
-
-  // Posts
-  insertPost(post, cb) {
-    this.postsCol.insertOne(post, (errInsert) => {
-      if (errInsert) {
-        return cb('Error inserting user');
-      }
-      cb(null, post);
-    });
-  }
-
-  getUserPosts(userId, cb, limit = 100, projection = {}, sort = { createdAt: -1 }) {
-    this.postsCol.find({ userId }, projection).sort(sort).limit(limit).toArray(cb);
   }
 
   // Users

@@ -9,6 +9,7 @@ import NoMatch from './containers/NoMatch';
 import Product from './containers/Product';
 import Subscription from './containers/Subscription';
 import Loading from './containers/Loading';
+import Home from './containers/Home';
 
 // import drizzle functions
 import { Drizzle, generateStore } from 'drizzle';
@@ -39,7 +40,7 @@ ReactDOM.render((
       <App auth={auth} drizzle={drizzle}>
         <Router history={history} store={drizzleStore}>
           <Switch>
-            <Route exact path="/" component={App} />
+            <Route exact path="/" component={Home} />
             <Route exact path="/callback" render={(props) => {
               auth.handleAuthentication(props);
               return <Loading {...props} />

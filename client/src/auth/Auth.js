@@ -12,10 +12,11 @@ export default class Auth {
 
   requestedScopes = 'openid profile read:messages write:messages';
   constructor(history) {
+    console.log('PROCESS.ENV', process.env);
     this.auth0 = new auth0.WebAuth({
-      domain: process.env.NODE_ENV.AUTH0_DOMAIN,
-      clientID: process.env.NODE_ENV.AUTH0_CLIENTID,
-      audience: process.env.NODE_ENV.AUTH0_AUDIENCE,
+      domain: process.env.REACT_APP_AUTH0_DOMAIN,
+      clientID: process.env.REACT_APP_AUTH0_CLIENTID,
+      audience: process.env.REACT_APP_AUTH0_AUDIENCE,
       redirectUri: REDIRECT_URI,
       responseType: 'token id_token',
       scope: this.requestedScopes

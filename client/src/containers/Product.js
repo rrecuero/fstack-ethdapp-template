@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ReadString from "./components/ReadString";
-import SetString from "./components/SetString";
+import ReadString from "../components/ReadString";
+import SetString from "../components/SetString";
 import './Product.scss';
 
 class Product extends Component {

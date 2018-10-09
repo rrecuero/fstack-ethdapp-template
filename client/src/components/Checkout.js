@@ -2,8 +2,8 @@ import React from 'react'
 import StripeCheckout from 'react-stripe-checkout';
 
 const STRIPE_PUBLISHABLE = process.env.NODE_ENV === 'production'
-  ? process.env.NODE_ENV.STRIPE_PROD
-  : process.env.NODE_ENV.STRIPE_TEST;
+  ? process.env.REACT_APP_STRIPE_PROD
+  : process.env.REACT_APP_STRIPE_TEST;
 
 const PAYMENT_SERVER_URL = '/api/checkout';
 

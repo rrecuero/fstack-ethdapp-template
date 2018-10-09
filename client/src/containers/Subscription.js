@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Checkout from './components/Checkout';
+import Checkout from '../components/Checkout';
 import './Subscription.scss';
 
 class Subscription extends Component {

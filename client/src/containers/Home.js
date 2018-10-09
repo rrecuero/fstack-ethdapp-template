@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import './Loading.scss';
+import './Home.scss';
 
 class Loading extends Component {
   render() {
 
     return (
-      <div className="loading-container">
+      <div className="home-container">
         <h1>
-          {this.props.msg || 'Creating your account...'}
+          Home
         </h1>
       </div>
     );

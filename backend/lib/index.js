@@ -7,7 +7,10 @@ import compression from 'compression';
 import path from 'path';
 import expressWinston from 'express-winston';
 import jwt from 'express-jwt';
+import jwksRsa from 'jwks-rsa';
 import UserManager from '../users/userManager';
+// import jwtAuthz from 'express-jwt-authz';
+// const checkScopes = jwtAuthz([ 'read:messages' ]);
 
 
 const app = express();
@@ -37,15 +40,18 @@ app.use(cleanMongo);
 // ignore authentication on the following routes
 app.use(
   jwt({
-    secret: config.jwt.secret
+    secret: jwksRsa.expressJwtSecret({
+      cache: true,
+      rateLimit: true,
+      jwksRequestsPerMinute: 5,
+      jwksUri: `https://${config.get('auth0').domain}/.well-known/jwks.json`
+    }),
+    // issuer: `https://${config.get('auth0').domain}`,
+    audience: `https://${config.get('auth0').audience}`,
+    algorithms: ['RS256']
   }).unless((req) => {
     const unprivilegedPaths = [
-      '/api/ping',
-      '/api/auth/signup',
-      '/api/auth/login',
-      '/api/auth/forgot',
-      '/api/auth/changePassword',
-      '/api/auth/verifyEmail',
+      '/api/ping'
     ];
     return (
       req.method === 'GET' || unprivilegedPaths.indexOf(req.originalUrl) !== -1
@@ -104,7 +110,8 @@ userManager.init(() => {
     }
   });
 
-  // All remaining requests return the React app, so it can handle routing.
+  // All remaining requests return the React app, so it can handle routing
+  // and heroku can be served in a single app
   app.get('*', (request, response) => {
     response.sendFile(path.resolve(__dirname, '../../client/build', 'index.html'));
   });

@@ -59,6 +59,7 @@ export default class MongoWrapper {
 
   applyIndexes(cb) {
     const users = this.db.collection('users');
+    const posts = this.db.collection('posts');
     async.parallel([
       (callback) => {
         users.createIndex({ email: 1 }, callback);
@@ -68,6 +69,10 @@ export default class MongoWrapper {
         users.createIndex({ token: 1 }, callback);
       }, (callback) => {
         users.createIndex({ createdAt: -1 }, callback);
+      }, (callback) => {
+        posts.createIndex({ createdAt: -1, userId: 1 }, callback);
+      }, (callback) => {
+        posts.createIndex({ userId: 1 }, callback);
       }
     ], cb);
   }

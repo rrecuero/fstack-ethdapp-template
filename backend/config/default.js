@@ -11,6 +11,13 @@ export const config = {
     url: "mongodb://...",
     reconnectAttempts: 3
   },
+  // Auth0
+  auth0: {
+    domain: '.com',
+    client: 'asd',
+    audience: 'https://..',
+    secret: 'asdas'
+  },
   //Stripe
   Stripe: {
     test: 'sk_live_MY_SECRET_KEY',

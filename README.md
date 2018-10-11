@@ -42,14 +42,18 @@ Add mongodb to your heroku.
 ## Quick Start
 
 Run npm install in every folder:
-`cd client && npm install`
-`cd ethwrapper && npm install`
-`cd backend && npm install`
+```
+cd client && npm install
+cd ethwrapper && npm install
+cd backend && npm install
+```
 
 Run garnache, backend and frontend in different terminals:
-`ganache-cli -b 3`
-`cd backend && npm run dev`
-`cd client && npm run start`
+```
+ganache-cli -b 3
+cd backend && npm run dev
+cd client && npm run start
+```
 
 The dApp should be running here `http://localhost:3000`.
 

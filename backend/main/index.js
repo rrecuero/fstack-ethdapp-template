@@ -12,7 +12,6 @@ import UserManager from '../users/userManager';
 // import jwtAuthz from 'express-jwt-authz';
 // const checkScopes = jwtAuthz([ 'read:messages' ]);
 
-
 const app = express();
 const version = '1.0';
 const port = process.env.PORT || 4000;

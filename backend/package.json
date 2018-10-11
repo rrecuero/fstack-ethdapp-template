@@ -9,7 +9,7 @@
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --recursive tests/",
     "lint": "eslint -c .eslintrc config utils api users email storage subscriptions",
-    "dev": "nodemon lib/index.js --exec babel-node",
+    "dev": "NODE_ENV='dev' nodemon main/index.js --exec babel-node",
     "start": "NODE_ENV='production' node ./node_modules/better-npm-run start-api"
   },
   "betterScripts": {

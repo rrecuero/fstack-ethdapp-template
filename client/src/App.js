@@ -21,7 +21,7 @@ class App extends Component {
     });
     this.ping();
     if (this.props.auth.isAuthenticated()) {
-      this.props.auth.getProfile();
+      this.props.auth.getProfile(() => { });
     }
   }
 

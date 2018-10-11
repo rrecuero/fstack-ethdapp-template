@@ -25,7 +25,6 @@ class Product extends Component {
     if (this.state.loading) {
       return "Loading Drizzle...";
     }
-    console.log('this.props', this.props);
     const { drizzle } = this.props;
     return (
       <div className="App">

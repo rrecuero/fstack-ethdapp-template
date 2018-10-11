@@ -1,21 +1,11 @@
+# Seamless Full Stack Dapp Template
+
 Javascript Fatigue + Cloud Fatigue + Web3 Fatigue?
 
 Here is the magic pill to solve all your symptoms.
 
-Starter kit to develop universal dapps with upgradeable smart contracts
+Starter kit to develop universal Dapps with upgradeable smart contracts
 and powerful user interfaces.
-
-## Inspirations
-
-- [React-/Drizzle Tutorial](https://truffleframework.com/tutorials/getting-started-with-drizzle-and-react)
-- [Open Zeppelin](https://github.com/OpenZeppelin/openzeppelin-solidity)
-- [Create React App](https://github.com/facebookincubator/create-react-app)
-
-## Technologies used
-
-- React/Redux + Drizzle
-- Smart Contracts: Truffle, Ganache, OpenZeppelin, Aragon
-- Backend: Node JS, Express
 
 ## Requirements
 
@@ -45,7 +35,39 @@ brew install heroku/brew/heroku
 heroku create -b heroku/nodejs -a <name>
 ```
 
-- Set env variables for the backend and frontend. Override them in heroku
+Add mongodb to your heroku.
+
+- Set env variables for the backend and frontend. Override them in heroku.
+
+## Quick Start
+
+Run npm install in every folder:
+`cd client && npm install`
+`cd ethwrapper && npm install`
+`cd backend && npm install`
+
+Run garnache, backend and frontend in different terminals:
+`ganache-cli -b 3`
+`cd backend && npm run dev`
+`cd client && npm run start`
+
+The dApp should be running here `http://localhost:3000`.
+
+## Deploying to heroku
+
+`git push heroku master`
+
+## Inspirations
+
+- [React-/Drizzle Tutorial](https://truffleframework.com/tutorials/getting-started-with-drizzle-and-react)
+- [Open Zeppelin](https://github.com/OpenZeppelin/openzeppelin-solidity)
+- [Create React App](https://github.com/facebookincubator/create-react-app)
+
+## Technologies used
+
+- React/Redux + Drizzle
+- Smart Contracts: Truffle, Ganache, OpenZeppelin, Aragon
+- Backend: Node JS, Express
 
 ## Folder Organization
 

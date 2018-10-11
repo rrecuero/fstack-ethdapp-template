@@ -4,7 +4,6 @@
   "description": "Full stack Dapp Template",
   "main": "index.js",
   "dependencies": {
-    "node-sass": "^4.9.3"
   },
   "devDependencies": {},
   "scripts": {
